@@ -3522,6 +3522,11 @@ body.dark-mode {
   transition: 0.3s ease;
 }
 
+.dark-mode .portfolio-card__link:hover {
+  color: aqua;
+  transition: 0.3s ease;
+}
+
 .portfolio-card__link::after {
   content: "";
   display: inline-block;
