@@ -2900,20 +2900,12 @@ textarea {
   gap: 15px;
   max-height: fit-content;
   width: fit-content;
-  max-width: 90%;
+  max-width: 80%;
   opacity: 0;
   transition: opacity 0.75s ease, transform 0.75s ease;
   pointer-events: none;
   padding: 0px 10px;
-}
-
-@media(max-width:624px) {
-  .facebook-msg,
-.inst-msg,
-.twitter-msg,
-.LinkedIn-msg {
-  width: 300px;
-}
+  text-align: center !important;
 }
 
 @media(max-width:325px) {
@@ -2921,7 +2913,6 @@ textarea {
 .inst-msg,
 .twitter-msg,
 .LinkedIn-msg {
-  text-align: center;
   top: 30px;
 }
 .laptop-main-wrapper {
