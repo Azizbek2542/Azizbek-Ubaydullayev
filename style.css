@@ -116,6 +116,7 @@ nav a {
     transition: 0.3s ease;
     animation: fade 1s ease forwards;
     opacity: 0;
+    pointer-events: none;
 }   
 .links-container a:nth-child(1) {
   animation-delay: 0.4s;
@@ -145,6 +146,7 @@ nav a {
   to {
     opacity: 1;
     transform: translateY(0);
+    pointer-events: auto;
   }
 }
 
@@ -205,6 +207,7 @@ nav .home-link {
     transform: translateY(-20px);
     animation-name: none;
     cursor: none;
+    pointer-events: none;
 } 
 .links-container a:hover {
     color: black !important;
@@ -326,6 +329,7 @@ nav .home-link {
   to {
     opacity: 1;
     transform: translateY(0);
+    pointer-events: auto;
   }
 }
 .close-sidebar-button {
@@ -349,6 +353,7 @@ nav .home-link {
 }
 .home-link {
     animation-name: none;
+    pointer-events: auto;
     opacity: 1;
 }
 .parent-container {
@@ -2462,7 +2467,7 @@ footer {
 .parent-container2 {
   display: flex;
   justify-content: space-between;
-  padding: 0px 110px 240px 110px;
+  padding: 0px 110px 240px 110px; 
 }
 
 .box {
@@ -2684,16 +2689,83 @@ footer {
 
 .parent-container3 {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
   gap: 25px;
-  justify-content: space-between;
-  width: fit-content;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .parent-container3 img {
   box-shadow: 0px 0px 10px 0px #1F242D;
   border-radius: 20px;
+}
+
+.parent-container3 .project-card-prnt {
+  display: grid;
+  grid-template-columns: minmax(250px, 1.15fr) minmax(0, 1fr);
+  gap: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.parent-container3 .project-card {
+  width: 100%;
+  min-width: 0;
+}
+
+.parent-container3 .porfolio-card__body {
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
+  .parent-container3 .project-card-prnt {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .parent-container3 .project-card {
+    max-width: 100% !important;
+    min-height: 220px;
+  }
+
+  .parent-container3 .portfolio-card__title {
+    margin-bottom: 14px;
+  }
+
+  .parent-container3 .portfolio-card__description {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .parent-container3 {
+    gap: 18px;
+  }
+
+  .parent-container3 .project-card-prnt {
+    padding: 16px;
+    border-radius: 22px;
+    gap: 16px;
+  }
+
+  .parent-container3 .portfolio-card__link {
+    font-size: clamp(22px, 5vw, 30px);
+    line-height: 1.2;
+  }
+
+  .parent-container3 .portfolio-card__description {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .parent-container3 .stack__list {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .parent-container3 .stack__item {
+    width: 52px;
+    height: 52px;
+  }
 }
 
 @media (max-width:1420px) {
@@ -2957,8 +3029,8 @@ textarea {
   }
   form {
     grid-template-columns: repeat(1,1fr) !important;
-    margin: 0;
-    width: 100%;
+    margin: 0 auto;
+    width: 90%;
   }
   input {
     width: 100% !important;
@@ -3180,6 +3252,10 @@ footer p {
     }
 }
 
+.dark-mode .header-lbl {
+  border: 2px solid transparent;
+}
+
 
 .header-lbl {
     width: 100px;
@@ -3194,7 +3270,7 @@ footer p {
     display: flex;
     align-items: center;
     justify-content: start;
-    border: 2px solid transparent;
+    border: 2px solid #ececec;
     z-index: 9;
 }
 
@@ -3315,23 +3391,74 @@ body.dark-mode {
   }
 }
 
+.project-card-prnt {
+  background-color: #ececec;
+  box-shadow: -10px -10px 15px white, 5px  5px 15px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: start;
+  gap: 100px;
+  border-radius: 32px;
+  position: relative;
+  padding: 30px;
+  transition: 0.3s ease;
+}
+
+.dark-mode .project-card-prnt {
+  box-shadow: -0.2px -0.2px 5px rgba(255, 255, 255, 0.214), 5px 5px 15px black;
+  background-color: #1F242D;
+}
+
+.dark-mode .project-card-prnt:after {
+  box-shadow: inset -2px -5px 15px rgba(14, 14, 14, 0.593), inset 15px 15px 15px rgba(0, 0, 0, 0.615);
+}
+
+.project-card-prnt:hover {
+  box-shadow: none !important;
+  transition: 0.3s ease;
+}
+
+.project-card-prnt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset -5px -5px 15px white, inset 5px 5px 15px rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.project-card-prnt > * {
+  position: relative;
+  z-index: 1;
+}
+
+.project-card-prnt:hover::after {
+  opacity: 1;
+}
+.project-card-prnt:hover {
+  box-shadow: none !important;
+  transition: 0.3s ease;
+}
 
 .project-card {
   position: relative;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 23px;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease;
+  transition: transform .3s ease;
+  transition: .3s ease !important;
   max-width: 477px !important;
   max-height: 352px !important;
   width: 100%;
   height: 100%;
+  border: 2px solid #dbdada;
 }
 
 .project-card:hover {
   box-shadow: none !important; 
-  transition: 0.3s ease;
+  transition: 0.2s ease !important;
 }
 
 .project-card img {
@@ -3378,4 +3505,89 @@ body.dark-mode {
 
 .circle-last-msg {
   transition: 0.3s ease;
+}
+
+.portfolio-card__link {
+  text-decoration: none;
+  color: #191820;
+  font-weight: 600;
+  font-size: 35px;
+  display: inline-flex;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.portfolio-card__link:hover {
+  color: aqua;
+  transition: 0.3s ease;
+}
+
+.portfolio-card__link::after {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url("./imgs/link.svg") 50% / contain no-repeat;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.portfolio-card__title {
+  margin-bottom: 20px;
+}
+
+.portfolio-card__description {
+  color: #191820;
+  font-size: 18px;
+  line-height: 1.5;
+  transition: 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.dark-mode .portfolio-card__description {
+  color: white;
+  transition: 0.3s ease;
+}
+
+.dark-mode .portfolio-card__link {
+  color: white;
+  transition: 0.3s ease;
+}
+
+.stack__item {
+  border-radius: 50%;
+  border: none;
+  box-shadow: inset -2px -2px 5px white, inset 2px 2px 5px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  transition: 0.2s ease;
+  background-color: #ececec;
+  border: 1.5px solid transparent;
+}
+
+.dark-mode .stack__item {
+  background-color: #1F242D;
+  box-shadow: inset -0.5px -0.5px 5px rgba(255, 255, 255, 0.2), inset 2px 2px 5px black;
+}
+
+.stack__item:hover {
+  border: 1.5px solid aqua;
+  transition: 0.2s ease;
+}
+
+.stack__list {
+  display: flex;
+  gap: 16px;
+  padding: 0;
+}
+
+.stack__image {
+  object-fit: contain;
+  width: 50%;
+  height: 50%;
+  box-shadow: none !important;
+  background-color: transparent !important;
 }
