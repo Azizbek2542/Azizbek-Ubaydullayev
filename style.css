@@ -2160,6 +2160,7 @@ footer {
   width: 45px;
   height: 45px;
   transition: 0.3s ease;
+  cursor: pointer;
 }
 
 /* @keyframes pointer-fade2 {
@@ -2205,6 +2206,7 @@ footer {
   vertical-align: middle;
   text-align: center;
   transition: 0.3s ease;
+  cursor: pointer;
 }
 
 .Lets-check-btn button:hover,
@@ -2482,6 +2484,10 @@ footer {
   justify-items: center;
   transition: 0.3s ease;
   z-index: 100;
+}
+
+.Read-more {
+  cursor: pointer;
 }
 
 .dark-mode .box {
@@ -2809,24 +2815,44 @@ input {
   background-color: #dbdada;
   outline-color: aqua;
   padding-left: 20px;
+  padding-right: 20px;
   color: black;
   font-size: 20px;
 }
 
 textarea {
-  width: 97.4%;
+  box-sizing: border-box;
+  width: 100%;
   height: 280px;
   border-radius: 8px;
-  padding: 20px 0px 0px 20px;
+  padding: 20px;
   border: none;
   outline-color: aqua;
   background-color: #dbdada;
-  grid-column: 1 / span 2;
   resize: none;
   overflow-y: auto;
   overflow-x: hidden;
   font-size: 20px;
   color: black;
+}
+
+.textarea-wrapper {
+  position: relative;
+  grid-column: 1 / span 2;
+}
+
+#counter {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  margin: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.dark-mode #counter {
+  color: white;
+  transition: 0.3s ease;
 }
 
 .reset-btn {
@@ -2850,6 +2876,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .submit-btn {
@@ -2872,6 +2899,7 @@ textarea {
   align-items: center;
   justify-content: center;
   transition: 0.3s ease;
+  cursor: pointer;
 }
 
 .form-btn-parent {
@@ -2891,7 +2919,7 @@ textarea {
   z-index: 1100;
   top: 45px;
   left: 50%;
-  transform: translate(-50%, -20px);
+  transform: translate(-50%, -60px);
   background: lime;
   border-radius: 20px;
   display: flex;
@@ -2903,7 +2931,7 @@ textarea {
   max-width: 80%;
   opacity: 0;
   transition: opacity 0.75s ease, transform 0.75s ease;
-  pointer-events: none;
+  pointer-events: none !important;
   padding: 0px 10px;
   text-align: center !important;
 }
@@ -2985,9 +3013,6 @@ textarea {
   input {
     width: auto;
   }
-  textarea {
-    width: auto;
-  }
 }
 
 @media(max-width:615px) {
@@ -2996,7 +3021,6 @@ textarea {
     font-size: 16px;
   }
   textarea {
-    width: auto;
     font-size: 16px;
   }
   .submit-btn {
@@ -3024,7 +3048,18 @@ textarea {
     width: 90%;
   }
   input {
+    box-sizing: border-box;
     width: 100% !important;
+    grid-column: 1;
+  }
+  textarea {
+    box-sizing: border-box;
+    width: 100% !important;
+  }
+  .textarea-wrapper {
+    grid-column: 1;
+  }
+  .form-btn-parent {
     grid-column: 1;
   }
 }
@@ -3328,6 +3363,11 @@ body.dark-mode {
     transition: 0.3s ease;
 }
 
+html:has(#darkmode-toggle:checked) {
+  background-color: #1F242D;
+  transition: 0.3s ease;
+}
+
 .dark-mode nav {
   background-color: #1F242D;
   transition: 0.3s ease;
@@ -3391,7 +3431,7 @@ body.dark-mode {
   border-radius: 32px;
   position: relative;
   padding: 30px;
-  transition: 0.3s ease;
+  transition: .3s ease !important;
 }
 
 .dark-mode .project-card-prnt {
@@ -3452,19 +3492,24 @@ body.dark-mode {
   transition: 0.2s ease !important;
 }
 
-.project-card img {
-  width: 100%;
-  height: auto;
+.project-card > a {
   display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.project-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform-origin: center;
   transition: transform 0.3s ease;
 }
 
 .project-card:hover img {
   transform: scale(1.03);
-}
-
-.project-card:nth-child(2):hover img {
-  transform: scale(1.01);
 }
 
 .dark-mode .project-card {
@@ -3552,7 +3597,6 @@ body.dark-mode {
 
 .stack__item {
   border-radius: 50%;
-  border: none;
   box-shadow: inset -2px -2px 5px white, inset 2px 2px 5px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
@@ -3586,4 +3630,5 @@ body.dark-mode {
   height: 50%;
   box-shadow: none !important;
   background-color: transparent !important;
+  border-radius: 0 !important;
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Azizbek Ubaydullayev. Frontend Developer</title>
-    <link rel="icon" href="./imgs/Author-Aziz-logo.svg" type="image/png">
+    <link rel="icon" href="./imgs/logo__svg.svg" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
@@ -374,7 +374,7 @@
     </div>
             </div>
 
-            <h1 id="Services" data-aos="zoom-in" data-aos-duration="1000" class="Service-title">Our <span class="aqua-title">Services</span></h1>
+            <h1 id="Services" class="Service-title">Our <span class="aqua-title">Services</span></h1>
             <div class="parent-container2">
               <div class="box one">
                 <div class="for-more-text">
@@ -417,10 +417,10 @@
               </div>
             </div>
             <div id="Portfolio" class="Project-container">
-              <h1 data-aos="zoom-in" data-aos-duration="1000">Latest <span class="aqua-title2">Project</span></h1>
+              <h1>Latest <span class="aqua-title2">Project</span></h1>
               <div class="parent-container3">
-                <div class="project-card-prnt">
-                <div data-aos="zoom-in" title="open the image in full size" class="project-card">
+                <div class="project-card-prnt" data-aos="fade-up" data-aos-duration="400">
+                <div title="open the image in full size" class="project-card">
                   <a href="./imgs/Evarugs.png" data-fancybox="gallery">
                       <img src="./imgs/Evarugs.png" alt="Evarugs" aria-placeholder="Evarugs">
                   </a>
@@ -432,13 +432,13 @@
                   <ul class="stack__list flow">
                     <li class="stack__item"><img class="stack__image" src="./imgs/html-5.svg" alt="HTML" title="HTML" loading="lazy"></li>
                     <li class="stack__item"><img class="stack__image" src="./imgs/css.svg" alt="CSS" title="CSS" loading="lazy"></li>
-                    <li class="stack__item"><img class="stack__image" src="./imgs/js.svg" alt="JS" title="JS" loading="lazy"></li>
+                    <li class="stack__item"><img class="stack__image" src="./imgs/js.svg" alt="JavaScript" title="JavaScript" loading="lazy"></li>
                   </ul>
                 </div>
                 </div>
                 </div>
-                <div class="project-card-prnt">
-                  <div data-aos="zoom-in" title="open the image in full size" class="project-card">
+                <div class="project-card-prnt" data-aos="fade-up" data-aos-duration="400">
+                  <div title="open the image in full size" class="project-card">
                   <a href="./imgs/Food-network.png" data-fancybox="gallery2">
                         <img src="./imgs/Food-network.png" alt="Food-network" aria-placeholder="Food-network">
                     </a>
@@ -450,13 +450,13 @@
                   <ul class="stack__list flow">
                     <li class="stack__item"><img class="stack__image" src="./imgs/html-5.svg" alt="HTML" title="HTML" loading="lazy"></li>
                     <li class="stack__item"><img class="stack__image" src="./imgs/css.svg" alt="CSS" title="CSS" loading="lazy"></li>
-                    <li class="stack__item"><img class="stack__image" src="./imgs/js.svg" alt="JS" title="JS" loading="lazy"></li>
+                    <li class="stack__item"><img class="stack__image" src="./imgs/js.svg" alt="JavaScript" title="JavaScript" loading="lazy"></li>
                   </ul>
                 </div>
                 </div>
                 </div>
-                <div class="project-card-prnt">
-                  <div data-aos="zoom-in" title="open the image in full size" class="project-card">
+                <div class="project-card-prnt" data-aos="fade-up" data-aos-duration="400">
+                  <div title="open the image in full size" class="project-card">
                   <h1 class="portfolio-card__title">Coming soon</h1>
                 </div>
                 </div>
@@ -469,7 +469,10 @@
               <input id="email" type="email" placeholder="Email Address" required>
               <input id="phone" type="tel" placeholder="Mobile Number" required>
               <input id="subject" type="text" placeholder="Email Subject" required>
-              <textarea id="message" placeholder="Your message" required></textarea>
+              <div class="textarea-wrapper">
+                <textarea id="message" maxlength="500" placeholder="Your message" required></textarea>
+                <p id="counter">0 / 500</p>
+              </div>
               
               <div class="form-btn-parent">
                 <button class="reset-btn" type="reset">Reset all</button>
@@ -485,9 +488,6 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-
- <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-
 <script>
   setTimeout(function () {
     var typed = new Typed("#typed-text", {
@@ -546,29 +546,8 @@
 
 
 <script>
-  const form = document.getElementById("Contact-form");
-  const msg = document.getElementById("submit-msg");
-
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    if (form.checkValidity()) {
-      msg.classList.add("active");
-
-      setTimeout(() => {
-        msg.classList.remove("active");
-        form.reset(); 
-      }, 1200);
-    } else {
-      form.reportValidity();
-    }
-  });
-</script>
-
-
-
-<script>
   let clickedHomeLink = false;
+  history.scrollRestoration = "manual";
 
 
   document.querySelector('.home-link')?.addEventListener('click', function () {
@@ -597,8 +576,12 @@
 
       const savedPos = sessionStorage.getItem("scrollPos");
       if (savedPos !== null) {
-        window.scrollTo(0, parseInt(savedPos));
+        document.documentElement.style.scrollBehavior = "auto";
+        window.scrollTo(0, Number(savedPos));
         sessionStorage.removeItem("scrollPos");
+        requestAnimationFrame(() => {
+          document.documentElement.style.removeProperty("scroll-behavior");
+        });
       }
 
     }, 400);

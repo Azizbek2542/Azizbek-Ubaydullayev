@@ -113,9 +113,26 @@ overlay.addEventListener("click", () => {
     const chatId = 840647463;
 
     const form2 = document.getElementById('Contact-form');
+    const textarea = document.querySelector("#message");
+    const counter = document.querySelector("#counter");
+    const submitMsg = document.getElementById("submit-msg");
+    const submitButton = form2.querySelector('[type="submit"]');
+    let isSending = false;
 
-    form2.addEventListener('submit', function(e) {
+    textarea.addEventListener("input", () => {
+      counter.textContent = `${textarea.value.length} / 500`;
+    });
+
+    form2.addEventListener("reset", () => {
+      counter.textContent = "0 / 500";
+    });
+
+    form2.addEventListener('submit', async function(e) {
       e.preventDefault();
+
+      if (isSending) return;
+      isSending = true;
+      submitButton.disabled = true;
 
       const username = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -133,15 +150,31 @@ overlay.addEventListener("click", () => {
 ✉️ User Message: ${UserMessagee}
       `;
 
-      sendToTelegram(message);
+      try {
+        await sendToTelegram(message);
+        form2.reset();
+        submitMsg.classList.add("active");
+        await new Promise(resolve => setTimeout(resolve, 1200));
+        submitMsg.classList.remove("active");
+      } catch (error) {
+        console.error("Failed to send the contact form", error);
+        window.alert("Не удалось отправить сообщение. Попробуйте ещё раз.");
+      } finally {
+        isSending = false;
+        submitButton.disabled = false;
+      }
     });
-    function sendToTelegram(message) {
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    async function sendToTelegram(message) {
+      const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chat_id: chatId,
           text: message
         })
-      })
+        });
+      const result = await response.json();
+      if (!response.ok || !result.ok) {
+        throw new Error(result.description || `Telegram request failed with status ${response.status}`);
+      }
     }
