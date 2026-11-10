@@ -490,6 +490,7 @@ footer {
   top: -100px;
   height: 100%;
   position: relative !important;
+  display: none;
 }
 
 .laptop-bottom-panel {
