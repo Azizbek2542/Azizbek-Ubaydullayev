@@ -151,14 +151,7 @@ overlay.addEventListener("click", () => {
       counter.textContent = `${textarea.value.length} / ${maxMessageLength}`;
     }
 
-    textarea.addEventListener("input", (event) => {
-      if (event.isComposing) {
-        counter.textContent = `${Math.min(textarea.value.length, maxMessageLength)} / ${maxMessageLength}`;
-        return;
-      }
-
-      updateMessageCounter();
-    });
+    textarea.addEventListener("input", updateMessageCounter);
     textarea.addEventListener("compositionend", updateMessageCounter);
 
     form2.addEventListener("reset", () => {
