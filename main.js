@@ -130,12 +130,39 @@ overlay.addEventListener("click", () => {
     const submitButton = form2.querySelector('[type="submit"]');
     let isSending = false;
 
-    textarea.addEventListener("input", () => {
-      counter.textContent = `${textarea.value.length} / 500`;
+    const maxMessageLength = textarea.maxLength;
+
+    function updateMessageCounter() {
+      if (textarea.value.length > maxMessageLength) {
+        let limitedValue = "";
+        let length = 0;
+
+        for (const character of textarea.value) {
+          if (length + character.length > maxMessageLength) break;
+          limitedValue += character;
+          length += character.length;
+        }
+
+        const cursorPosition = Math.min(textarea.selectionStart, limitedValue.length);
+        textarea.value = limitedValue;
+        textarea.setSelectionRange(cursorPosition, cursorPosition);
+      }
+
+      counter.textContent = `${textarea.value.length} / ${maxMessageLength}`;
+    }
+
+    textarea.addEventListener("input", (event) => {
+      if (event.isComposing) {
+        counter.textContent = `${Math.min(textarea.value.length, maxMessageLength)} / ${maxMessageLength}`;
+        return;
+      }
+
+      updateMessageCounter();
     });
+    textarea.addEventListener("compositionend", updateMessageCounter);
 
     form2.addEventListener("reset", () => {
-      counter.textContent = "0 / 500";
+      counter.textContent = `0 / ${maxMessageLength}`;
     });
 
     form2.addEventListener('submit', async function(e) {
@@ -144,6 +171,7 @@ overlay.addEventListener("click", () => {
       if (isSending) return;
       isSending = true;
       submitButton.disabled = true;
+      updateMessageCounter();
 
       const username = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
